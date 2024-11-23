@@ -1,0 +1,12 @@
+:root {
+    --primary-green: #39FF14;
+    --secondary-green: #32CD32;
+    --background-white: #FFFFFF;
+    --text-dark: #333333;
+    --text-light: #FFFFFF;
+    --shadow-color: rgba(57, 255, 20, 0.2);
+    --gradient-green: linear-gradient(135deg, #39FF14 0%, #32CD32 100%);
+    --spacing-unit: 8px;
+    --border-radius: 12px;
+  }
+  
