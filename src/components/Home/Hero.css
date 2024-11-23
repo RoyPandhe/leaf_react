@@ -12,7 +12,44 @@
     color: white;
     text-align: center;
     padding: 2rem;
+  }.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    color: white;
   }
+  
+  .hero-buttons .btn {
+    padding: 1rem 2rem;   /* Menambah padding untuk memberikan ukuran kotak yang lebih besar */
+    text-decoration: none;
+    background-color: whitesmoke;
+    text-align: center;
+    text-transform: uppercase; /* Mengubah teks menjadi kapital */
+    font-weight: bold;
+    border-radius: 30%; /* Menghapus border-radius untuk membuatnya lebih kotak */
+    transition: all 0.3s ease-in-out; /* Efek transisi ketika hover */
+  }
+  
+  .hero-buttons .btn-primary {
+    
+    color: hwb(128 1% 69%); /* Warna teks biru */
+  }
+  
+  .hero-buttons .btn-primary:hover {
+    background-color: #007bff; /* Warna latar belakang biru saat hover */
+    color: white; /* Teks menjadi putih saat hover */
+  }
+  
+  .hero-buttons .btn-secondary {
+    
+    color: #6c757d; /* Warna teks abu-abu */
+  }
+  
+  .hero-buttons .btn-secondary:hover {
+    background-color: #6c757d; /* Warna latar belakang abu-abu saat hover */
+    color: white; /* Teks menjadi putih saat hover */
+  }
+  
   
   /* Rest of your Hero.css styles remain the same */
   .hero-content {
@@ -36,11 +73,12 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
+    color: white;
   }
   
   .primary-button, .secondary-button {
     padding: 1rem 2rem;
-    border-radius: 4px;
+    border-radius: 50%;
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.3s ease;
@@ -60,4 +98,4 @@
   .primary-button:hover, .secondary-button:hover {
     transform: translateY(-2px);
   }
-  
+

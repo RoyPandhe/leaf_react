@@ -9,7 +9,7 @@ const Header = () => {
     <header className="header">
       <div className="container header-content">
         <Link to="/" className="logo">
-          <span className="logo-text">Plant<span className="highlight">AI</span></span>
+          <span className="logo-text">EcoVision<span className="highlight">AI</span></span>
         </Link>
 
         <nav className="nav-menu">
