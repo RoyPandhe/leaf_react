@@ -1,0 +1,157 @@
+/* ScanPage.css */
+:root {
+    --primary-green: #4CAF50;
+    --light-green: #E8F5E9;
+    --hover-green: #45a049;
+    --white: #ffffff;
+    --gray: #f5f5f5;
+    --text-dark: #333333;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .scan-page {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .scan-page h1 {
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  
+  /* Tabs styling */
+  .scan-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .tab-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--gray);
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .tab-button:hover {
+    background-color: var(--light-green);
+  }
+  
+  .tab-button.active {
+    background-color: var(--primary-green);
+    color: var(--white);
+  }
+  
+  /* Content area styling */
+  .scan-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: var(--light-green);
+    border-radius: 12px;
+  }
+  
+  /* Scan button styling */
+  .scan-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-green);
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+  }
+  
+  .scan-button:hover {
+    background-color: var(--hover-green);
+    transform: translateY(-2px);
+  }
+  
+  .scan-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Image preview area */
+  .image-preview {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Results section styling */
+  .results-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .scan-page {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  
+    .scan-page h1 {
+      font-size: 2rem;
+    }
+  
+    .scan-content {
+      padding: 1rem;
+    }
+  
+    .tab-button {
+      padding: 0.6rem 1rem;
+    }
+  }
+  
+  /* Loading animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--white);
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+  }
+  

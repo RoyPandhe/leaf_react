@@ -1,0 +1,75 @@
+/* components/Results/Results.css */
+.results-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  .results-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+  }
+  
+  .result-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 2rem;
+  }
+  
+  .result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .result-header h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+  }
+  
+  .confidence {
+    background-color: #2ecc71;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .result-details {
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .detail-item h4 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .detail-item p {
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .detail-item ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .detail-item ul li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  
+  .detail-item ul li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #3498db;
+  }
+  
