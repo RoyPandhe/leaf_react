@@ -28,7 +28,7 @@ const Features = () => {
   return (
     <section id="features" className="features">
       <div className="container">
-        <h2>Why Choose PlantAI?</h2>
+        <h2>Why Choose EcoVisionAI?</h2>
         <div className="features-grid">
           {features.map((feature, index) => (
             <div key={index} className="feature-card">
