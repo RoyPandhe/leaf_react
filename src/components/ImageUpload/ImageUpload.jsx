@@ -61,30 +61,34 @@ const ImageUpload = ({ onImageSelect }) => {
 
     // Upload the file to S3
     const uploadFile = async (file) => {
-      const presignedUrl = await getPresignedUrl(file.name);
-      if (!presignedUrl) return;
-  
-      setIsUploading(true);
-      setUploadError(null);
-  
-      try {
-          const response = await fetch(presignedUrl, {
-              method: "PUT",
-              body: file,
-              headers: {
-                  "Content-Type": file.type,
-              },
-          });
-          if (!response.ok) {
-              setUploadError("Failed to upload image. Please try again.");
-          }
-      } catch (error) {
-          setUploadError(`Error uploading image: ${error.message}`);
-      } finally {
-          setIsUploading(false);
-      }
-  };
-  
+        const presignedUrl = await getPresignedUrl(file.name);
+        if (!presignedUrl) return;
+
+        setIsUploading(true);
+        setUploadError(null);
+
+        try {
+            // Send the file to S3 using the presigned URL
+            const response = await fetch(presignedUrl, {
+                method: "PUT",
+                body: file,
+                headers: {
+                    "Content-Type": file.type, // Make sure Content-Type is correct
+                },
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                setUploadError(`Failed to upload image. Error: ${errorMessage}`);
+            } else {
+                setPreview(null); // Optionally clear preview after upload
+            }
+        } catch (error) {
+            setUploadError(`Error uploading image: ${error.message}`);
+        } finally {
+            setIsUploading(false);
+        }
+    };
 
     const handleChange = (e) => {
         const file = e.target.files[0];
