@@ -6,22 +6,32 @@ const Features = () => {
     {
       icon: '🔍',
       title: 'Instant Recognition',
-      description: 'Advanced AI technology identifies plants in seconds'
+      description: 'Advanced AI technology identifies leaves in seconds.'
     },
     {
       icon: '📸',
       title: 'Multiple Input Methods',
-      description: 'Use your camera or upload existing photos'
+      description: 'Use your camera or upload existing photos.'
     },
     {
       icon: '📚',
       title: 'Detailed Information',
-      description: 'Learn about plant characteristics and care tips'
+      description: 'Learn about leaves’ characteristics and care tips.'
     },
     {
       icon: '📱',
       title: 'Easy to Use',
-      description: 'Simple and intuitive interface for everyone'
+      description: 'Simple and intuitive interface for everyone.'
+    },
+    {
+      icon: '☁️',
+      title: 'Cloud Reliability',
+      description: 'Operates on a secure, scalable cloud platform for consistent performance.'
+    },
+    {
+      icon: '⚙️',
+      title: 'Customizable Analysis',
+      description: 'Tailor the AI model to focus on specific highland plant leaves.'
     }
   ];
 

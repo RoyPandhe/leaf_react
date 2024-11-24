@@ -9,11 +9,10 @@ const Hero = () => {
         <div className="hero-text">
           <h1>
             Discover the World of
-            <span className="highlight"> Plants</span>
+            <span className="highlight"> Leaves</span>
           </h1>
           <p>
-            Instantly identify plants, learn about their characteristics, 
-            and explore their benefits using advanced AI technology.
+          Effortlessly identify highland plant leaves, uncover their unique traits, and explore their ecological benefits with cutting-edge AI technology
           </p>
           <div className="hero-buttons">
             <Link to="/scan" className="btn btn-primary">
