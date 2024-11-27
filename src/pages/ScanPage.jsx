@@ -1,5 +1,5 @@
 // src/pages/ScanPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageUpload from '../components/ImageUpload/ImageUpload';
 import Camera from '../components/Camera/Camera';
 import Results from '../components/Results/Results';
@@ -11,9 +11,18 @@ const ScanPage = () => {
   const [results, setResults] = useState(null);
   const [activeTab, setActiveTab] = useState('upload'); // 'upload' or 'camera'
 
-  // Add this handleImageSelect function
+  // Load image from sessionStorage when the page is loaded
+  useEffect(() => {
+    const storedImage = sessionStorage.getItem('selectedImage');
+    if (storedImage) {
+      setSelectedImage(JSON.parse(storedImage));
+    }
+  }, []);
+
+  // Save image to sessionStorage when it is selected
   const handleImageSelect = (file) => {
     setSelectedImage(file);
+    sessionStorage.setItem('selectedImage', JSON.stringify(file)); // Store image in sessionStorage
     setResults(null); // Clear previous results when new image is selected
   };
 
@@ -22,8 +31,7 @@ const ScanPage = () => {
 
     setIsLoading(true);
     try {
-      // Here you would implement your API call to identify the plant
-      // For now, we'll simulate a response
+      // Simulate scanning process
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       setResults({
@@ -43,7 +51,7 @@ const ScanPage = () => {
 
   return (
     <div className="scan-page">
-      <h1>Scan Your Plant</h1>
+      <h1>Scan Your Leaf</h1>
       
       <div className="scan-tabs">
         <button

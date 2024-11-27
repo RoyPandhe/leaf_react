@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css'; // CSS untuk header
-import logo from './ECO.png'; // Mengimpor file PNG dari folder yang sama
+import logo from './ECO-1.png'; // Mengimpor file PNG dari folder yang sama
 
 const Header = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const Header = () => {
       <div className="container header-content">
         <Link to="/" className="logo">
           <img src={logo} alt="Logo" className="logo-image" />
-          <span className="logo-text">EcoVision<span className="highlight">AI</span></span>
+          
         </Link>
 
         <nav className="nav-menu">

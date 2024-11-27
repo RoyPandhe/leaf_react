@@ -1,101 +1,90 @@
-/* src/components/Home/Hero.css */
 .hero {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Method 1: Using imported image */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                url('../../images/hero-bg.jpg') center/cover;
-    /* OR Method 2: Using solid color as fallback */
-    background-color: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-  }.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    color: white;
+  min-height: 80vh;
+  display: flex;
+  justify-content: flex-start; /* Menempatkan konten di sebelah kiri */
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url('../../images/new-bg.jpg') center/cover;
+  color: white;
+  padding: 2rem;
+}
+
+.hero-content {
+  max-width: 800px;
+  z-index: 1;
+  padding-left: 2rem; /* Memberi jarak dari kiri */
+}
+
+.hero-text {
+  text-align: left; /* Agar teks diatur ke kiri */
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start; /* Tombol akan berada di kiri */
+  color: white;
+}
+
+.hero-image {
+  display: none; /* Sembunyikan gambar pada versi ini */
+}
+
+/* Jika ingin menampilkan gambar di perangkat lebar, bisa menggunakan media query */
+@media (min-width: 768px) {
+  .hero-image {
+      display: block;
   }
-  
-  .hero-buttons .btn {
-    padding: 1rem 2rem;   /* Menambah padding untuk memberikan ukuran kotak yang lebih besar */
-    text-decoration: none;
-    background-color: whitesmoke;
-    text-align: center;
-    text-transform: uppercase; /* Mengubah teks menjadi kapital */
-    font-weight: bold;
-    border-radius: 30%; /* Menghapus border-radius untuk membuatnya lebih kotak */
-    transition: all 0.3s ease-in-out; /* Efek transisi ketika hover */
-  }
-  
-  .hero-buttons .btn-primary {
-    
-    color: hwb(128 1% 69%); /* Warna teks biru */
-  }
-  
-  .hero-buttons .btn-primary:hover {
-    background-color: #007bff; /* Warna latar belakang biru saat hover */
-    color: white; /* Teks menjadi putih saat hover */
-  }
-  
-  .hero-buttons .btn-secondary {
-    
-    color: #6c757d; /* Warna teks abu-abu */
-  }
-  
-  .hero-buttons .btn-secondary:hover {
-    background-color: #6c757d; /* Warna latar belakang abu-abu saat hover */
-    color: white; /* Teks menjadi putih saat hover */
-  }
-  
-  
-  /* Rest of your Hero.css styles remain the same */
+
   .hero-content {
-    max-width: 800px;
-    z-index: 1;
+      max-width: 50%; /* Setengah dari lebar layar untuk teks */
   }
-  
-  .hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
+
+  .hero-text {
+      text-align: left;
   }
-  
-  .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-  }
-  
-  .hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    color: white;
-  }
-  
-  .primary-button, .secondary-button {
-    padding: 1rem 2rem;
-    border-radius: 50%;
-    font-weight: 600;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-  }
-  
-  .primary-button {
-    background-color: #3498db;
-    color: white;
-  }
-  
-  .secondary-button {
-    background-color: transparent;
-    border: 2px solid white;
-    color: white;
-  }
-  
-  .primary-button:hover, .secondary-button:hover {
-    transform: translateY(-2px);
-  }
+}
+.hero-buttons .btn {
+  padding: 0.5rem 1.5rem; /* Slimmer ukuran */
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none; /* Menghapus border */
+  border-radius: 20px; /* Membuat tombol sedikit melengkung */
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.hero-buttons .btn-primary {
+  background-color: #b4fc51; /* Warna hijau cerah seperti stabilo */
+  color: #333; /* Warna teks hitam untuk kontras */
+}
+
+.hero-buttons .btn-primary:hover {
+  background-color: #99e647; /* Warna hijau yang sedikit lebih gelap saat hover */
+  color: white; /* Warna teks putih saat hover */
+}
+
+.hero-buttons .btn-secondary {
+  background-color: white; /* Latar putih untuk tombol Learn More */
+  color: #6c757d; /* Warna teks abu-abu */
+}
+
+.hero-buttons .btn-secondary:hover {
+  background-color: #f0f0f0; /* Warna abu-abu muda saat hover */
+  color: #333; /* Warna teks menjadi hitam saat hover */
+}
 

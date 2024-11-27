@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ImageUpload.css";
 
 const MAX_FILE_SIZE_MB = 5;
@@ -9,6 +9,14 @@ const ImageUpload = ({ onImageSelect }) => {
     const [dragActive, setDragActive] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [uploadError, setUploadError] = useState(null);
+
+    // Load saved image from Local Storage when component mounts
+    useEffect(() => {
+        const savedImage = localStorage.getItem("uploadedImage");
+        if (savedImage) {
+            setPreview(savedImage);
+        }
+    }, []);
 
     // Handle file validation and upload
     const handleFile = async (file) => {
@@ -30,8 +38,12 @@ const ImageUpload = ({ onImageSelect }) => {
         // Preview the image
         const reader = new FileReader();
         reader.onloadend = () => {
-            setPreview(reader.result);
+            const filePreview = reader.result;
+            setPreview(filePreview);
             onImageSelect(file); // Pass the file to the parent component
+
+            // Save image to Local Storage
+            localStorage.setItem("uploadedImage", filePreview);
         };
         reader.onerror = () => setUploadError("Error reading file. Please try again.");
         reader.readAsDataURL(file);
@@ -61,30 +73,29 @@ const ImageUpload = ({ onImageSelect }) => {
 
     // Upload the file to S3
     const uploadFile = async (file) => {
-      const presignedUrl = await getPresignedUrl(file.name);
-      if (!presignedUrl) return;
-  
-      setIsUploading(true);
-      setUploadError(null);
-  
-      try {
-          const response = await fetch(presignedUrl, {
-              method: "PUT",
-              body: file,
-              headers: {
-                  "Content-Type": file.type,
-              },
-          });
-          if (!response.ok) {
-              setUploadError("Failed to upload image. Please try again.");
-          }
-      } catch (error) {
-          setUploadError(`Error uploading image: ${error.message}`);
-      } finally {
-          setIsUploading(false);
-      }
-  };
-  
+        const presignedUrl = await getPresignedUrl(file.name);
+        if (!presignedUrl) return;
+
+        setIsUploading(true);
+        setUploadError(null);
+
+        try {
+            const response = await fetch(presignedUrl, {
+                method: "PUT",
+                body: file,
+                headers: {
+                    "Content-Type": file.type,
+                },
+            });
+            if (!response.ok) {
+                setUploadError("Failed to upload image. Please try again.");
+            }
+        } catch (error) {
+            setUploadError(`Error uploading image: ${error.message}`);
+        } finally {
+            setIsUploading(false);
+        }
+    };
 
     const handleChange = (e) => {
         const file = e.target.files[0];
@@ -108,31 +119,33 @@ const ImageUpload = ({ onImageSelect }) => {
 
     return (
         <div className="image-upload-container">
-            <div
-                className={`upload-area ${dragActive ? "drag-active" : ""}`}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-            >
-                <input
-                    type="file"
-                    id="image-input"
-                    className="file-input"
-                    accept="image/*"
-                    onChange={handleChange}
-                    disabled={isUploading}
-                />
-                <label htmlFor="image-input" className="upload-label">
-                    <div className="upload-content">
-                        <div className="upload-icon">📸</div>
-                        <p>Drag and drop your image here or</p>
-                        <button type="button" className="browse-button" disabled={isUploading}>
-                            Browse Files
-                        </button>
-                    </div>
-                </label>
-            </div>
+            {!preview && ( // Only show upload area if no preview
+                <div
+                    className={`upload-area ${dragActive ? "drag-active" : ""}`}
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                >
+                    <input
+                        type="file"
+                        id="image-input"
+                        className="file-input"
+                        accept="image/*"
+                        onChange={handleChange}
+                        disabled={isUploading}
+                    />
+                    <label htmlFor="image-input" className="upload-label">
+                        <div className="upload-content">
+                            <div className="upload-icon">📸</div>
+                            <p>Drag and drop your image here or</p>
+                            <button type="button" className="browse-button" disabled={isUploading}>
+                                Browse Files
+                            </button>
+                        </div>
+                    </label>
+                </div>
+            )}
 
             {preview && (
                 <div className="preview-container">
@@ -143,6 +156,7 @@ const ImageUpload = ({ onImageSelect }) => {
                         onClick={() => {
                             setPreview(null);
                             onImageSelect(null);
+                            localStorage.removeItem("uploadedImage"); // Remove from Local Storage
                         }}
                         disabled={isUploading}
                     >

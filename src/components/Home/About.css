@@ -1,0 +1,52 @@
+/* src/components/Home/About.css */
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #adffaa;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .about:hover {
+    background-color: #e0f7fa; /* Warna berubah saat hover */
+  }
+  
+  .about-content {
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .about-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #00796b; /* Warna hijau untuk judul */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .about-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  .about-mission {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00796b; /* Warna hijau untuk penekanan */
+  }
+  
+  @media (max-width: 768px) {
+    .about-title {
+      font-size: 2rem;
+    }
+  
+    .about-description,
+    .about-mission {
+      font-size: 1rem;
+    }
+  }
+  
