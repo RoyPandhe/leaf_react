@@ -7,13 +7,13 @@ const Hero = () => {
     <section className="hero">
       <div className="container hero-content">
         <div className="hero-text">
+          <h3>Smart Agriculture</h3>
           <h1>
-            Discover the World of
-            <span className="highlight"> Leaves</span>
+          Get to know the leaves of Java's mountains: consume or avoid? 
+          Detection with Modern Image Processing
+            
           </h1>
-          <p>
-          Effortlessly identify highland plant leaves, uncover their unique traits, and explore their ecological benefits with cutting-edge AI technology
-          </p>
+          
           <div className="hero-buttons">
             <Link to="/scan" className="btn btn-primary">
               Start Identifying
@@ -25,10 +25,7 @@ const Hero = () => {
         </div>
         <div className="hero-image">
           <div className="image-container">
-            <img 
-              src="/assets/hero-plant.png" 
-              alt="Plant identification illustration" 
-            />
+            
           </div>
         </div>
       </div>

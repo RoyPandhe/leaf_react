@@ -4,6 +4,7 @@ import Header from './components/Layout/Header';
 import HomePage from './pages/HomePage';
 import ScanPage from './pages/ScanPage';
 import HistoryPage from './pages/HistoryPage';
+import Footer from './components/Layout/Footer'; // Import Footer component
 import './App.css';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/history" element={<HistoryPage />} />
           </Routes>
         </main>
+        <Footer /> {/* Menambahkan Footer di bagian bawah */}
       </div>
     </Router>
   );
