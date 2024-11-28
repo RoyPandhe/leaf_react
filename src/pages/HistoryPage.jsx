@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './HistoryPage.css';
 
 const HistoryPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   // Mock data - replace with your actual data
   const mockHistory = [
     {
@@ -12,7 +12,7 @@ const HistoryPage = () => {
       scientificName: "Monstera deliciosa",
       family: "Araceae",
       date: "2024-01-15",
-      imageUrl: "https://example.com/plant1.jpg" // Replace with actual image URL
+      imageUrl: "https://example.com/plant1.jpg"
     },
     {
       id: 2,
@@ -20,10 +20,16 @@ const HistoryPage = () => {
       scientificName: "Dracaena trifasciata",
       family: "Asparagaceae",
       date: "2024-01-14",
-      imageUrl: "https://example.com/plant2.jpg" // Replace with actual image URL
+      imageUrl: "https://example.com/plant2.jpg"
     },
     // Add more mock items as needed
   ];
+
+  const filteredHistory = useMemo(() => {
+    return mockHistory.filter(item =>
+      item.plantName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -52,17 +58,16 @@ const HistoryPage = () => {
         </div>
       </div>
 
-      {mockHistory.length > 0 ? (
+      {filteredHistory.length > 0 ? (
         <div className="history-grid">
-          {mockHistory.map((item) => (
+          {filteredHistory.map((item) => (
             <div key={item.id} className="history-card">
               <div className="card-image">
-                {/* Replace with your default plant image if imageUrl is not available */}
-                <img 
-                  src={item.imageUrl || '/default-plant-image.jpg'} 
+                <img
+                  src={item.imageUrl || '/default-plant-image.jpg'}
                   alt={item.plantName}
                   onError={(e) => {
-                    e.target.src = '/default-plant-image.jpg'; // Replace with your default image path
+                    e.target.src = '/default-plant-image.jpg'; // Use a fallback image
                   }}
                 />
               </div>
@@ -85,7 +90,7 @@ const HistoryPage = () => {
         </div>
       )}
 
-      {mockHistory.length > 0 && (
+      {filteredHistory.length > 0 && (
         <div className="pagination">
           <button className="page-button">Previous</button>
           <button className="page-button active">1</button>

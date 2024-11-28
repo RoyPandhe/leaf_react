@@ -127,3 +127,11 @@
     grid-template-columns: 1fr;
   }
 }
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-top: 80px; /* Pastikan ini sama dengan tinggi header */
+}
