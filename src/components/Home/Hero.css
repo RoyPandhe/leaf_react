@@ -7,22 +7,24 @@
               url('../../images/new-bg.jpg') center/cover;
   color: white;
   padding: 2rem;
+  background-size: cover;
 }
 
 .hero-content {
   max-width: 800px;
   z-index: 1;
-  padding-left: 2rem; /* Memberi jarak dari kiri */
+  padding-left: 2rem;
 }
 
 .hero-text {
-  text-align: left; /* Agar teks diatur ke kiri */
+  text-align: left;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;  /* Menurunkan ukuran font agar lebih responsif */
   margin-bottom: 1.5rem;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .hero p {
@@ -34,57 +36,82 @@
 .hero-buttons {
   display: flex;
   gap: 1rem;
-  justify-content: flex-start; /* Tombol akan berada di kiri */
+  justify-content: flex-start;
   color: white;
 }
 
 .hero-image {
-  display: none; /* Sembunyikan gambar pada versi ini */
+  display: none; /* Gambar tidak ditampilkan di perangkat kecil */
 }
 
-/* Jika ingin menampilkan gambar di perangkat lebar, bisa menggunakan media query */
 @media (min-width: 768px) {
   .hero-image {
-      display: block;
+      display: block;  /* Tampilkan gambar pada perangkat lebih lebar */
   }
 
   .hero-content {
-      max-width: 50%; /* Setengah dari lebar layar untuk teks */
+      max-width: 50%;  /* Konten lebih kecil di layar lebar */
   }
 
-  .hero-text {
-      text-align: left;
+  .hero h1 {
+      font-size: 3.5rem; /* Ukuran font lebih besar untuk layar besar */
+  }
+
+  .hero p {
+      font-size: 1.5rem; /* Menyesuaikan ukuran teks dengan layar */
   }
 }
+
+/* Media Query untuk ukuran layar lebih kecil (untuk perangkat mobile) */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.5rem;  /* Ukuran font yang lebih kecil untuk layar kecil */
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;  /* Tombol menjadi kolom pada layar kecil */
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .hero-content {
+    padding-left: 1rem;  /* Padding lebih kecil pada layar kecil */
+    max-width: 100%;
+  }
+}
+
 .hero-buttons .btn {
-  padding: 0.5rem 1.5rem; /* Slimmer ukuran */
+  padding: 0.5rem 1.5rem;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
-  border: none; /* Menghapus border */
-  border-radius: 20px; /* Membuat tombol sedikit melengkung */
+  border: none;
+  border-radius: 20px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
 
 .hero-buttons .btn-primary {
-  background-color: #b4fc51; /* Warna hijau cerah seperti stabilo */
-  color: #333; /* Warna teks hitam untuk kontras */
+  background-color: #b4fc51;
+  color: #333;
 }
 
 .hero-buttons .btn-primary:hover {
-  background-color: #99e647; /* Warna hijau yang sedikit lebih gelap saat hover */
-  color: white; /* Warna teks putih saat hover */
+  background-color: #99e647;
+  color: white;
 }
 
 .hero-buttons .btn-secondary {
-  background-color: white; /* Latar putih untuk tombol Learn More */
-  color: #6c757d; /* Warna teks abu-abu */
+  background-color: white;
+  color: #6c757d;
 }
 
 .hero-buttons .btn-secondary:hover {
-  background-color: #f0f0f0; /* Warna abu-abu muda saat hover */
-  color: #333; /* Warna teks menjadi hitam saat hover */
+  background-color: #f0f0f0;
+  color: #333;
 }
-
