@@ -1,3 +1,4 @@
+// src/components/Results/Results.jsx
 import React from 'react';
 import './Results.css';
 
@@ -11,7 +12,7 @@ const Results = ({ data, loading }) => {
     );
   }
 
-  if (!data) return null;
+  if (!data) return <p>No results found. Please try again.</p>;
 
   return (
     <div className="results-container">
@@ -30,6 +31,10 @@ const Results = ({ data, loading }) => {
               {label}
             </span>
           ))}
+        </div>
+
+        <div className="description">
+          <p>{data.description}</p>
         </div>
       </div>
     </div>
