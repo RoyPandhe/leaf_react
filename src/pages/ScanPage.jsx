@@ -24,6 +24,7 @@ const ScanPage = () => {
     setSelectedImage(file);
     sessionStorage.setItem('selectedImage', JSON.stringify(file)); // Store image in sessionStorage
     setResults(null); // Clear previous results when new image is selected
+    setIsLoading(false); // Disable loading state when image is selected
   };
 
   const handleScan = async () => {
@@ -31,16 +32,22 @@ const ScanPage = () => {
 
     setIsLoading(true);
     try {
-      // Simulate scanning process
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Create FormData to send the image to the server
+      const formData = new FormData();
+      formData.append("image", selectedImage);
       
-      setResults({
-        plantName: "Sample Plant",
-        confidence: 95,
-        scientificName: "Plantus Exampleus",
-        family: "Sample Family",
-        description: "This is a sample plant description."
+      // Call backend API to process the image
+      const response = await fetch('/api/scan', {  // Replace with your API endpoint
+        method: 'POST',
+        body: formData,
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to identify plant');
+      }
+
+      const data = await response.json();
+      setResults(data); // Set the results from the API response
     } catch (error) {
       console.error('Error scanning plant:', error);
       alert('Error identifying plant. Please try again.');
@@ -88,7 +95,7 @@ const ScanPage = () => {
           </button>
         )}
 
-        {results && <Results results={results} />}
+        {results && <Results data={results} loading={isLoading} />}
       </div>
     </div>
   );
