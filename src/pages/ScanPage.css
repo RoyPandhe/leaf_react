@@ -12,20 +12,20 @@
   max-width: 900px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: var(--white);
+  background-color: rgb(222, 255, 172);
   border-radius: 12px;
   box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .scan-page h1 {
-  color: var(--text-dark);
+  color: rgb(0, 36, 12);
   text-align: center;
   margin-bottom: 2rem;
   font-size: 2.5rem;
   font-weight: 600;
 }
 
-/* Tabs styling */
 .scan-tabs {
   display: flex;
   justify-content: center;
@@ -33,28 +33,77 @@
   margin-bottom: 2rem;
 }
 
-.tab-button {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--gray);
-  color: var(--text-dark);
-  font-size: 1rem;
-  font-weight: 500;
+/* From Uiverse.io by Madflows */ 
+button {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 15px;
+ }
+ 
+ button.tab-button {
+  font-weight: 600;
+  color: #382b22;
+  text-transform: uppercase;
+  padding: 1.25em 2em;
+  background: #fff0f0;
+  border: 2px solid #6eff7a;
+  border-radius: 0.75em;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+ }
+ 
+ button.tab-button::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #c4f9da;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 2px #6eff7a, 0 0.625em 0 0 #ffe3e2;
+  box-shadow: 0 0 0 2px #6eff7a, 0 0.625em 0 0 #ffe3e2;
+  -webkit-transform: translate3d(0, 0.75em, -1em);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+ }
+ 
+ button.tab-button:hover {
+  background: #ffe9e9;
+  -webkit-transform: translate(0, 0.25em);
+  transform: translate(0, 0.25em);
+ }
+ 
+ button.tab-button:hover::before {
+  -webkit-box-shadow: 0 0 0 2px #6eff7a, 0 0.5em 0 0 #ffe3e2;
+  box-shadow: 0 0 0 2px #6eff7a, 0 0.5em 0 0 #ffe3e2;
+  -webkit-transform: translate3d(0, 0.5em, -1em);
+  transform: translate3d(0, 0.5em, -1em);
+ }
+ 
+ button.tab-button:active {
+  background: #ffe9e9;
+  -webkit-transform: translate(0em, 0.75em);
+  transform: translate(0em, 0.75em);
+ }
+ 
+ button.tab-button:active::before {
+  -webkit-box-shadow: 0 0 0 2px #6eff7a, 0 0 #ffe3e2;
+  box-shadow: 0 0 0 2px #6eff7a, 0 0 #ffe3e2;
+  -webkit-transform: translate3d(0, 0, -1em);
+  transform: translate3d(0, 0, -1em);
+ }
 
-.tab-button:hover {
-  background-color: var(--light-green);
-}
-
-.tab-button.active {
-  background-color: var(--primary-green);
-  color: var(--white);
-}
-
-/* Content area styling */
 .scan-content {
   display: flex;
   flex-direction: column;
@@ -63,25 +112,28 @@
   padding: 2rem;
   background-color: var(--light-green);
   border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 
-/* Scan button styling */
 .scan-button {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--primary-green);
-  color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 500;
+  background: #fbca1f;
+  font-family: inherit;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
   cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 200px;
 }
 
 .scan-button:hover {
-  background-color: var(--hover-green);
-  transform: translateY(-2px);
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+.scan-button:active{
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
 }
 
 .scan-button:disabled {
@@ -90,7 +142,6 @@
   transform: none;
 }
 
-/* Image preview area */
 .image-preview {
   width: 100%;
   max-width: 400px;
@@ -107,7 +158,6 @@
   object-fit: cover;
 }
 
-/* Results section styling */
 .results-container {
   width: 100%;
   max-width: 600px;
@@ -115,61 +165,61 @@
   background-color: var(--white);
   border-radius: 12px;
   box-shadow: var(--shadow);
+  margin-top: 2rem;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .scan-page {
-      margin: 1rem;
-      padding: 1rem;
+    margin: 1rem;
+    padding: 1rem;
   }
 
   .scan-page h1 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .scan-content {
-      padding: 1rem;
+    padding: 1rem;
   }
 
   .tab-button {
-      padding: 0.6rem 1rem;
+    padding: 0.6rem 1rem;
   }
 
   .results-container {
-      padding: 1rem;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .scan-tabs {
-      flex-direction: column;
-      gap: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .image-preview {
-      max-width: 100%;
-      height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    height: auto;
   }
 
   .results-container {
-      padding: 1rem;
-      max-width: 90%;
+    padding: 1rem;
+    max-width: 90%;
   }
 
   .scan-button {
-      font-size: 1rem;
-      padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
   }
 }
 
-/* Loading animation */
+/* Loading spinner */
 @keyframes spin {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 

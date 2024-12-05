@@ -1,9 +1,8 @@
-/* src/components/ImageUpload/ImageUpload.css */
-
 .image-upload-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 1rem;
+  text-align: center;
 }
 
 .upload-area {
@@ -14,6 +13,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   background-color: #f8f9fa;
+  position: relative; /* Tambahan */
 }
 
 .upload-area.drag-active {
@@ -22,12 +22,21 @@
 }
 
 .file-input {
-  display: none;
+  position: absolute; /* Tambahan */
+  top: 0;
+  left: 0;
+  width: 100%; /* Tambahan */
+  height: 100%; /* Tambahan */
+  opacity: 0; /* Menyembunyikan secara visual */
+  cursor: pointer; /* Tetap interaktif */
+  z-index: 1; /* Memastikan input file berada di atas */
 }
 
 .upload-label {
   display: block;
   cursor: pointer;
+  width: 100%; /* Tambahan */
+  height: 100%; /* Tambahan */
 }
 
 .upload-content {
@@ -43,31 +52,48 @@
 }
 
 .browse-button {
-  background-color: #3498db;
-  color: white;
-  padding: 0.8rem 1.5rem;
+  width: 150px;
+  padding: 0;
   border: none;
-  border-radius: 4px;
+  transform: rotate(5deg);
+  transform-origin: center;
+  font-family: "Gochi Hand", cursive;
+  text-decoration: none;
+  font-size: 15px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  padding-bottom: 3px;
+  border-radius: 5px;
+  box-shadow: 0 2px 0 #494a4b;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: #5cdb95;
 }
 
-.browse-button:hover {
-  background-color: #2980b9;
+.browse-button span {
+  background: #f1f5f8;
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 2px solid #494a4b;
 }
+
+.browse-button:active {
+  transform: translateY(5px);
+  padding-bottom: 0px;
+  outline: 0;
+}
+
 
 .preview-container {
   margin-top: 2rem;
   text-align: center;
-  position: relative; /* Added for positioning the remove button */
+  position: relative;
 }
 
 .image-preview {
   max-width: 100%;
   max-height: 300px;
   border-radius: 8px;
-  object-fit: contain; /* Ensure the image fits inside the container without distortion */
+  object-fit: contain;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -88,3 +114,77 @@
 .remove-button:hover {
   background-color: #c0392b;
 }
+
+.error-text {
+  color: red;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+
+
+/* Responsif untuk perangkat kecil */
+@media (max-width: 768px) {
+  .image-upload-container {
+    padding: 1rem;
+  }
+
+  .upload-area {
+    padding: 1rem;
+  }
+
+  .browse-button {
+    padding: 0.6rem 1.2rem;
+  }
+
+  .image-preview {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .remove-button {
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-upload-container {
+    padding: 0.8rem;
+  }
+
+  .upload-area {
+    padding: 1rem;
+  }
+
+  .browse-button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .image-preview {
+    height: auto;
+    max-height: 200px;
+  }
+
+  .remove-button {
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+/* From Uiverse.io by JaydipPrajapati1910 */ 
+.uploading-message {
+  justify-content: center;
+  
+  height: 28px;
+  background: repeating-linear-gradient(-45deg, #766DF4 0 30px,#0000 0 40px) left/200% 100%;
+  animation: i3 2s infinite linear;
+  border-radius: 10px;
+  border: 1px solid #766DF4;
+}
+
+@keyframes i3 {
+  100% {
+    background-position: right
+  }
+}
+  
