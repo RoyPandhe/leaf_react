@@ -15,8 +15,10 @@
   right: 0;
   z-index: 1000;
   padding: 10px 20px;
+  width: 100%; /* Pastikan header memenuhi lebar layar */
 }
 
+/* Header Content */
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -139,5 +141,21 @@
   .nav-link {
     text-align: center;
     padding: calc(var(--spacing-unit) * 2);
+  }
+
+  /* Adjustments for Header and Content to Avoid Overlapping */
+  body {
+    padding-top: 80px; /* Adjust padding to match the header height */
+  }
+}
+
+/* Additional Fix for Small Mobile Devices */
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 16px; /* Smaller padding for very small devices */
+  }
+
+  .nav-link {
+    font-size: 0.9rem; /* Smaller font size on small devices */
   }
 }

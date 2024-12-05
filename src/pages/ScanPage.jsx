@@ -91,7 +91,9 @@ const ScanPage = () => {
             onClick={handleScan}
             disabled={isLoading}
           >
+
             {isLoading ? 'Identifying...' : 'Identify Plant'}
+            
           </button>
         )}
 

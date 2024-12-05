@@ -173,7 +173,7 @@ const ImageUpload = ({ onImageSelect }) => {
 
             {isUploading && (
                 <div className="uploading-message">
-                    <p>Uploading...</p>
+                    
                 </div>
             )}
         </div>
