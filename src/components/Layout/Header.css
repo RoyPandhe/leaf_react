@@ -7,15 +7,16 @@
 
 /* Header Styling */
 .header {
-  background: var(--background-white);
+  background: rgb(251, 255, 219);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 10px 20px;
+  padding: 5px 20px;
   width: 100%; /* Pastikan header memenuhi lebar layar */
+  
 }
 
 /* Header Content */
@@ -47,8 +48,9 @@
   padding: calc(var(--spacing-unit)) 0;
   position: relative;
   transition: color 0.3s;
+  font-size: 0.95rem; /* Kurangi ukuran font untuk navigasi */
+  font-weight: 400; /* Kurangi ketebalan font */
 }
-
 .nav-link:hover {
   color: var(--primary-green);
 }
@@ -145,7 +147,7 @@
 
   /* Adjustments for Header and Content to Avoid Overlapping */
   body {
-    padding-top: 80px; /* Adjust padding to match the header height */
+    padding-top: 60px; /* Adjust padding to match the header height */
   }
 }
 
