@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ImageUpload.css";
+import { v4 as uuidv4 } from "uuid";
 
 const MAX_FILE_SIZE_MB = 5;
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -35,21 +36,29 @@ const ImageUpload = ({ onImageSelect }) => {
             return;
         }
 
+        // Generate unique key for the file
+        const uniqueFileName = `${uuidv4()}-${file.name}`;
+        console.log("Generated unique filename:", uniqueFileName); // Debug log
+
         // Preview the image
         const reader = new FileReader();
         reader.onloadend = () => {
             const filePreview = reader.result;
             setPreview(filePreview);
-            onImageSelect(file); // Pass the file to the parent component
-
-            // Save image to Local Storage
             localStorage.setItem("uploadedImage", filePreview);
         };
         reader.onerror = () => setUploadError("Error reading file. Please try again.");
         reader.readAsDataURL(file);
 
-        // Upload the file
-        await uploadFile(file);
+        // Upload the file and get the image key
+        try {
+            const imageKey = await uploadFile(file, uniqueFileName);
+            console.log("Uploaded image key:", imageKey); // Debug log
+            onImageSelect(imageKey); // Pass the image key to parent
+        } catch (error) {
+            console.error("Upload error:", error);
+            setUploadError("Failed to upload image. Please try again.");
+        }
     };
 
     // Get pre-signed URL
@@ -67,31 +76,37 @@ const ImageUpload = ({ onImageSelect }) => {
             return data.presignedUrl;
         } catch (error) {
             setUploadError(`Error fetching pre-signed URL: ${error.message}`);
-            return null;
+            throw error;
         }
     };
 
     // Upload the file to S3
-    const uploadFile = async (file) => {
-        const presignedUrl = await getPresignedUrl(file.name);
-        if (!presignedUrl) return;
-
+    const uploadFile = async (file, fileName) => {
         setIsUploading(true);
         setUploadError(null);
 
         try {
-            const response = await fetch(presignedUrl, {
+            const presignedUrl = await getPresignedUrl(fileName);
+            if (!presignedUrl) throw new Error("Failed to get presigned URL");
+
+            const uploadResponse = await fetch(presignedUrl, {
                 method: "PUT",
                 body: file,
                 headers: {
                     "Content-Type": file.type,
                 },
             });
-            if (!response.ok) {
-                setUploadError("Failed to upload image. Please try again.");
+
+            if (!uploadResponse.ok) {
+                throw new Error("Failed to upload image");
             }
+
+            console.log("File uploaded successfully:", fileName); // Debug log
+            return fileName; // Return the filename as the image key
         } catch (error) {
+            console.error("Upload error:", error);
             setUploadError(`Error uploading image: ${error.message}`);
+            throw error;
         } finally {
             setIsUploading(false);
         }
@@ -119,7 +134,7 @@ const ImageUpload = ({ onImageSelect }) => {
 
     return (
         <div className="image-upload-container">
-            {!preview && ( // Only show upload area if no preview
+            {!preview && (
                 <div
                     className={`upload-area ${dragActive ? "drag-active" : ""}`}
                     onDragEnter={handleDrag}
@@ -156,7 +171,7 @@ const ImageUpload = ({ onImageSelect }) => {
                         onClick={() => {
                             setPreview(null);
                             onImageSelect(null);
-                            localStorage.removeItem("uploadedImage"); // Remove from Local Storage
+                            localStorage.removeItem("uploadedImage");
                         }}
                         disabled={isUploading}
                     >
@@ -173,7 +188,7 @@ const ImageUpload = ({ onImageSelect }) => {
 
             {isUploading && (
                 <div className="uploading-message">
-                    
+                    <p>Uploading...</p>
                 </div>
             )}
         </div>

@@ -8,7 +8,8 @@ const ScanPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
-  const [activeTab, setActiveTab] = useState("upload"); // 'upload' or 'camera'
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("upload");
 
   // Load image from sessionStorage when the page is loaded
   useEffect(() => {
@@ -21,43 +22,62 @@ const ScanPage = () => {
   // Save image key to sessionStorage when it is selected
   const handleImageSelect = (imageKey) => {
     setSelectedImage(imageKey);
-    sessionStorage.setItem("selectedImageKey", imageKey); // Store image key in sessionStorage
-    setResults(null); // Clear previous results when new image is selected
-    setIsLoading(false); // Disable loading state when image is selected
+    sessionStorage.setItem("selectedImageKey", imageKey);
+    setResults(null);
+    setError(null);
+    setIsLoading(false);
   };
 
   const handleScan = async () => {
     if (!selectedImage) {
-      alert("Please upload an image or capture one using the camera.");
+      setError("Please upload an image or capture one using the camera.");
       return;
     }
 
     setIsLoading(true);
+    setError(null);
+
     try {
-      // Call the API Gateway endpoint to identify the plant
+      // Debug log the request
+      const requestBody = {
+        bucket: "user-uploaded-leaf-image", // Make sure this is your actual bucket name
+        image_key: selectedImage,
+      };
+      console.log("Sending request with:", requestBody);
+
       const response = await fetch(
-        "https://2deffx0k0d.execute-api.us-east-1.amazonaws.com/dev/identify-plant",
+        "https://h0ckkuldh5.execute-api.us-east-1.amazonaws.com/dev/identify-plant",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            bucket: "your-s3-bucket-name", // Replace with your S3 bucket name
-            image_key: selectedImage, // Pass the image key stored in session
-          }),
+          body: JSON.stringify(requestBody),
         }
       );
 
+      // Debug log the response
+      console.log("Response status:", response.status);
+
+      // Always try to parse the response body
+      const data = await response.json();
+      console.log("Response data:", data);
+
       if (!response.ok) {
-        throw new Error("Failed to identify plant");
+        throw new Error(data.error || "Failed to identify plant");
       }
 
-      const data = await response.json();
-      setResults(data); // Set the results from the API response
+      // Validate response data
+      if (!data.name_indo && !data.name_latin) {
+        throw new Error("Invalid response format from server");
+      }
+
+      setResults(data);
+      setError(null);
     } catch (error) {
-      console.error("Error scanning plant:", error);
-      alert("Error identifying plant. Please try again.");
+      console.error("Error details:", error);
+      setError(error.message || "Error identifying plant. Please try again.");
+      setResults(null);
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +110,8 @@ const ScanPage = () => {
         ) : (
           <Camera onCapture={handleImageSelect} />
         )}
+
+        {error && <div className="error-message">{error}</div>}
 
         {selectedImage && (
           <button
