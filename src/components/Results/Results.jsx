@@ -19,21 +19,29 @@ const Results = ({ data, loading }) => {
     ? data.description 
     : data.description.split('|').map(item => item.trim());
 
+  // Determine confidence color based on category
+  const isNonEdible = data.category === 'Non Edible';
+  const confidenceColorClass = isNonEdible ? 'confidence-fill-red' : 'confidence-fill-green';
+
   return (
     <div className="results-container">
       <div className="result-card">
+        {/* Confidence Meter */}
         <div className="confidence-meter">
           <div 
-            className="confidence-fill"
+            className={`confidence-fill ${confidenceColorClass}`}
             style={{ width: `${data.confidence}%` }}
           />
           <span>{Math.round(data.confidence)}% Confidence</span>
         </div>
 
-        {/* Plant Names */}
+        {/* Plant Names and Category */}
         <div className="plant-names">
           <h2 className="plant-name">{data.name_indo}</h2>
           <h3 className="scientific-name">{data.name_latin}</h3>
+          <div className={`category-badge ${isNonEdible ? 'non-edible' : 'edible'}`}>
+            {data.category}
+          </div>
         </div>
         
         {/* Description List */}
