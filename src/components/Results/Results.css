@@ -1,4 +1,95 @@
-/* Add to Results.css */
+/* Results.css */
+.results-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.result-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Confidence Meter Styles */
+.confidence-meter {
+  background: #f0f0f0;
+  border-radius: 10px;
+  height: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.confidence-fill-green {
+  background: #4CAF50;
+}
+
+.confidence-fill-red {
+  background: #dc3545;
+}
+
+.confidence-meter span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  font-weight: bold;
+  font-size: 12px;
+  z-index: 1;
+}
+
+/* Plant Names and Category Styles */
+.plant-names {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.plant-name {
+  color: #333;
+  font-size: 24px;
+  margin: 0 0 5px 0;
+}
+
+.scientific-name {
+  color: #666;
+  font-size: 18px;
+  font-style: italic;
+  margin: 0 0 10px 0;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.category-badge.edible {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #4caf50;
+}
+
+.category-badge.non-edible {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef5350;
+}
+
+/* Description Styles */
 .description {
   color: #555;
   line-height: 1.6;
@@ -34,66 +125,7 @@
   font-size: 18px;
 }
 
-/* Existing styles */
-.results-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-}
-
-.result-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.confidence-meter {
-  background: #f0f0f0;
-  border-radius: 10px;
-  height: 20px;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.confidence-fill {
-  background: #4CAF50;
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.3s ease;
-}
-
-.confidence-meter span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #333;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-.plant-names {
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.plant-name {
-  color: #333;
-  font-size: 24px;
-  margin: 0 0 5px 0;
-}
-
-.scientific-name {
-  color: #666;
-  font-size: 18px;
-  font-style: italic;
-  margin: 0;
-}
-
+/* Loading Styles */
 .loading {
   text-align: center;
 }
