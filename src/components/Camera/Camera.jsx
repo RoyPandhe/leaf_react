@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import './Camera.css';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 
 const Camera = ({ onCapture }) => {
   const videoRef = useRef(null);
@@ -57,7 +58,10 @@ const Camera = ({ onCapture }) => {
 
     // Mengonversi canvas menjadi file gambar
     canvas.toBlob(async (blob) => {
-      const file = new File([blob], "captured-image.jpg", { type: "image/jpeg" });
+      // Generate nama file unik menggunakan UUID
+      const uniqueFileName = `image-${uuidv4()}.jpg`;
+
+      const file = new File([blob], uniqueFileName, { type: "image/jpeg" });
 
       // Simpan URL gambar untuk ditampilkan
       const imageUrl = URL.createObjectURL(blob);
@@ -65,7 +69,7 @@ const Camera = ({ onCapture }) => {
       onCapture(file); // Kirim file gambar ke parent component
 
       // Proses upload ke S3 melalui pre-signed URL
-      const presignedUrl = await getPresignedUrl(file.name);
+      const presignedUrl = await getPresignedUrl(uniqueFileName);
       if (presignedUrl) {
         await uploadToS3UsingPresignedUrl(file, presignedUrl);
       }
