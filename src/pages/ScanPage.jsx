@@ -19,6 +19,22 @@ const ScanPage = () => {
     }
   }, []);
 
+  const setHistory = (data) => {
+    const history = JSON.parse(localStorage.getItem('plantHistory')) || [];
+  
+    history.push({
+      plantName: data.name_indo,
+      scientificName: data.name_latin,
+      category: data.category,
+      confidence: data.confidence,
+      description: data.description,
+      date: new Date().toISOString(),
+      imageKey: selectedImage
+    });
+  
+    localStorage.setItem('plantHistory', JSON.stringify(history));
+  };
+
   // Save image key to sessionStorage when it is selected
   const handleImageSelect = (imageKey) => {
     setSelectedImage(imageKey);
@@ -73,6 +89,7 @@ const ScanPage = () => {
       }
 
       setResults(data);
+      setHistory(data);
       setError(null);
     } catch (error) {
       console.error("Error details:", error);

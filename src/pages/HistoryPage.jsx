@@ -1,35 +1,42 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './HistoryPage.css';
 
 const HistoryPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [history, setHistory] = useState([]);
+  const [imageUrls, setImageUrls] = useState({});
 
-  // Mock data - replace with your actual data
-  const mockHistory = [
-    {
-      id: 1,
-      plantName: "Monstera Deliciosa",
-      scientificName: "Monstera deliciosa",
-      family: "Araceae",
-      date: "2024-01-15",
-      imageUrl: "https://example.com/plant1.jpg"
-    },
-    {
-      id: 2,
-      plantName: "Snake Plant",
-      scientificName: "Dracaena trifasciata",
-      family: "Asparagaceae",
-      date: "2024-01-14",
-      imageUrl: "https://example.com/plant2.jpg"
-    },
-    // Add more mock items as needed
-  ];
+  useEffect(() => {
+    const storedHistory = JSON.parse(localStorage.getItem('plantHistory')) || [];
+    setHistory(storedHistory);
+    console.log(history);
+
+    storedHistory.forEach((item) => {
+      getPresignedUrl(item.imageKey).then((url) => {
+        setImageUrls((prev) => ({
+          ...prev,
+          [item.imageKey]: url,
+        }));
+      });
+    });
+  }, []);
+
+  const getPresignedUrl = async (imageKey) => {
+    try {
+      const response = await fetch(`https://wf85g6ao27.execute-api.us-east-1.amazonaws.com/dev/presigned-url/download?fileName=${imageKey}`);
+      const data = await response.json();
+      return data.presignedUrl;
+    } catch (error) {
+      console.error("Error getting presigned URL:", error);
+      return '';
+    }
+  };
 
   const filteredHistory = useMemo(() => {
-    return mockHistory.filter(item =>
+    return history.filter(item =>
       item.plantName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [searchQuery, history]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -64,17 +71,17 @@ const HistoryPage = () => {
             <div key={item.id} className="history-card">
               <div className="card-image">
                 <img
-                  src={item.imageUrl || '/default-plant-image.jpg'}
+                  src={imageUrls[item.imageKey] || ''}
                   alt={item.plantName}
                   onError={(e) => {
-                    e.target.src = '/default-plant-image.jpg'; // Use a fallback image
+                    e.target.src = '';
                   }}
                 />
               </div>
               <div className="card-content">
                 <h3 className="card-title">{item.plantName}</h3>
                 <p className="card-details">
-                  {item.scientificName} • {item.family}
+                  {item.scientificName} • {item.category}
                 </p>
                 <span className="card-date">
                   Scanned on {formatDate(item.date)}
