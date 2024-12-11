@@ -1,24 +1,16 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react'; 
 import './HistoryPage.css';
 
 const HistoryPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [history, setHistory] = useState([]);
   const [imageUrls, setImageUrls] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   useEffect(() => {
     const storedHistory = JSON.parse(localStorage.getItem('plantHistory')) || [];
     setHistory(storedHistory);
-    console.log(history);
-
-    storedHistory.forEach((item) => {
-      getPresignedUrl(item.imageKey).then((url) => {
-        setImageUrls((prev) => ({
-          ...prev,
-          [item.imageKey]: url,
-        }));
-      });
-    });
   }, []);
 
   const getPresignedUrl = async (imageKey) => {
@@ -37,6 +29,27 @@ const HistoryPage = () => {
       item.plantName.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery, history]);
+
+  const totalPages = Math.ceil(filteredHistory.length / itemsPerPage);
+
+  const currentItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredHistory.slice(startIndex, endIndex);
+  }, [currentPage, filteredHistory]);
+
+  useEffect(() => {
+    currentItems.forEach((item) => {
+      if (!imageUrls[item.imageKey]) {
+        getPresignedUrl(item.imageKey).then((url) => {
+          setImageUrls((prev) => ({
+            ...prev,
+            [item.imageKey]: url,
+          }));
+        });
+      }
+    });
+  }, [currentItems, imageUrls]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -65,16 +78,16 @@ const HistoryPage = () => {
         </div>
       </div>
 
-      {filteredHistory.length > 0 ? (
+      {currentItems.length > 0 ? (
         <div className="history-grid">
-          {filteredHistory.map((item) => (
+          {currentItems.map((item) => (
             <div key={item.id} className="history-card">
               <div className="card-image">
                 <img
-                  src={imageUrls[item.imageKey] || ''}
+                  src={imageUrls[item.imageKey] || require('../components/Layout/ECO-1.png')}
                   alt={item.plantName}
                   onError={(e) => {
-                    e.target.src = '';
+                    e.target.src = require('../components/Layout/ECO-1.png');
                   }}
                 />
               </div>
@@ -97,13 +110,31 @@ const HistoryPage = () => {
         </div>
       )}
 
-      {filteredHistory.length > 0 && (
+      {totalPages > 1 && (
         <div className="pagination">
-          <button className="page-button">Previous</button>
-          <button className="page-button active">1</button>
-          <button className="page-button">2</button>
-          <button className="page-button">3</button>
-          <button className="page-button">Next</button>
+          <button
+            className="page-button"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          >
+            Previous
+          </button>
+
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            className="page-button"
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          >
+            Next
+          </button>
         </div>
       )}
     </div>
