@@ -8,9 +8,10 @@
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* General Styles */
 .scan-page {
-  max-width: 900px;
-  margin: 2rem auto;
+  max-width: 1000px;
+  margin: 4rem auto;
   padding: 2rem;
   background-color: rgb(222, 255, 172);
   border-radius: 12px;
@@ -33,7 +34,7 @@
   margin-bottom: 2rem;
 }
 
-/* From Uiverse.io by Madflows */ 
+/* Tab Button Styles */
 button {
   position: relative;
   display: inline-block;
@@ -44,9 +45,9 @@ button {
   text-decoration: none;
   font-family: inherit;
   font-size: 15px;
- }
- 
- button.tab-button {
+}
+
+button.tab-button {
   font-weight: 600;
   color: #382b22;
   text-transform: uppercase;
@@ -54,56 +55,45 @@ button {
   background: #fff0f0;
   border: 2px solid #6eff7a;
   border-radius: 0.75em;
-  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
-  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
- }
- 
- button.tab-button::before {
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+button.tab-button::before {
   position: absolute;
   content: '';
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
   background: #c4f9da;
   border-radius: inherit;
-  -webkit-box-shadow: 0 0 0 2px #6eff7a, 0 0.625em 0 0 #ffe3e2;
   box-shadow: 0 0 0 2px #6eff7a, 0 0.625em 0 0 #ffe3e2;
-  -webkit-transform: translate3d(0, 0.75em, -1em);
   transform: translate3d(0, 0.75em, -1em);
-  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
- }
- 
- button.tab-button:hover {
-  background: #ffe9e9;
-  -webkit-transform: translate(0, 0.25em);
-  transform: translate(0, 0.25em);
- }
- 
- button.tab-button:hover::before {
-  -webkit-box-shadow: 0 0 0 2px #6eff7a, 0 0.5em 0 0 #ffe3e2;
-  box-shadow: 0 0 0 2px #6eff7a, 0 0.5em 0 0 #ffe3e2;
-  -webkit-transform: translate3d(0, 0.5em, -1em);
-  transform: translate3d(0, 0.5em, -1em);
- }
- 
- button.tab-button:active {
-  background: #ffe9e9;
-  -webkit-transform: translate(0em, 0.75em);
-  transform: translate(0em, 0.75em);
- }
- 
- button.tab-button:active::before {
-  -webkit-box-shadow: 0 0 0 2px #6eff7a, 0 0 #ffe3e2;
-  box-shadow: 0 0 0 2px #6eff7a, 0 0 #ffe3e2;
-  -webkit-transform: translate3d(0, 0, -1em);
-  transform: translate3d(0, 0, -1em);
- }
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
 
+button.tab-button:hover {
+  background: #ffe9e9;
+  transform: translate(0, 0.25em);
+}
+
+button.tab-button:hover::before {
+  box-shadow: 0 0 0 2px #6eff7a, 0 0.5em 0 0 #ffe3e2;
+  transform: translate3d(0, 0.5em, -1em);
+}
+
+button.tab-button:active {
+  background: #ffe9e9;
+  transform: translate(0em, 0.75em);
+}
+
+button.tab-button:active::before {
+  box-shadow: 0 0 0 2px #6eff7a, 0 0 #ffe3e2;
+  transform: translate3d(0, 0, -1em);
+}
+
+/* Scan Content */
 .scan-content {
   display: flex;
   flex-direction: column;
@@ -131,7 +121,8 @@ button {
   transform: translate(-0.05em, -0.05em);
   box-shadow: 0.15em 0.15em;
 }
-.scan-button:active{
+
+.scan-button:active {
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.05em 0.05em;
 }
@@ -139,7 +130,6 @@ button {
 .scan-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
-  transform: none;
 }
 
 .image-preview {
@@ -168,10 +158,11 @@ button {
   margin-top: 2rem;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
   .scan-page {
-    margin: 1rem;
-    padding: 1rem;
+    margin: 0.1rem;
+    padding-top: 2rem;
   }
 
   .scan-page h1 {
@@ -192,28 +183,41 @@ button {
 }
 
 @media (max-width: 480px) {
-  .scan-tabs {
+  .scan-page {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Pastikan konten dimulai dari atas */
+    margin: 0; /* Hapus margin atas agar tidak ada spasi */
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .scan-content {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .scan-tabs {
+    width: 100%; /* Sesuaikan lebar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
   }
 
-  .image-preview {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .results-container {
-    padding: 1rem;
-    max-width: 90%;
-  }
-
-  .scan-button {
-    font-size: 1rem;
-    padding: 0.8rem 1.5rem;
+  .scan-page h1 {
+    font-size: 1.8rem; /* Perkecil ukuran font header jika perlu */
+    margin-top: 0; /* Pastikan header tidak terhalang oleh margin */
+    padding-top: 0; /* Pastikan tidak ada padding di atas */
   }
 }
 
-/* Loading spinner */
+
+/* Loading Spinner */
 @keyframes spin {
   0% {
     transform: rotate(0deg);

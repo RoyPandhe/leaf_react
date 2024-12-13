@@ -1,25 +1,37 @@
 /* Results.css */
+/* Container Styles */
 .results-container {
   width: 100%;
-  max-width: 600px;
+  
   margin: 20px auto;
-  padding: 20px;
+  
+  box-sizing: border-box;
 }
 
+/* Card Styles */
 .result-card {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Confidence Meter Styles */
 .confidence-meter {
   background: #f0f0f0;
   border-radius: 10px;
-  height: 20px;
+  height: clamp(15px, 3vw, 20px);
   position: relative;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .confidence-fill {
@@ -29,11 +41,11 @@
 }
 
 .confidence-fill-green {
-  background: #4CAF50;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
 }
 
 .confidence-fill-red {
-  background: #dc3545;
+  background: linear-gradient(90deg, #dc3545, #c82333);
 }
 
 .confidence-meter span {
@@ -43,8 +55,9 @@
   transform: translate(-50%, -50%);
   color: #333;
   font-weight: bold;
-  font-size: 12px;
+  font-size: clamp(10px, 2vw, 12px);
   z-index: 1;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 /* Plant Names and Category Styles */
@@ -57,24 +70,28 @@
 
 .plant-name {
   color: #333;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
   margin: 0 0 5px 0;
+  word-wrap: break-word;
+  font-weight: 600;
 }
 
 .scientific-name {
   color: #666;
-  font-size: 18px;
+  font-size: clamp(14px, 3vw, 18px);
   font-style: italic;
   margin: 0 0 10px 0;
+  word-wrap: break-word;
 }
 
 .category-badge {
   display: inline-block;
-  padding: 6px 12px;
+  padding: clamp(4px, 1.5vw, 6px) clamp(8px, 2vw, 12px);
   border-radius: 20px;
-  font-size: 14px;
+  font-size: clamp(12px, 2.5vw, 14px);
   font-weight: bold;
   margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
 .category-badge.edible {
@@ -83,10 +100,18 @@
   border: 1px solid #4caf50;
 }
 
+.category-badge.edible:hover {
+  background-color: #c8e6c9;
+}
+
 .category-badge.non-edible {
   background-color: #ffebee;
   color: #c62828;
   border: 1px solid #ef5350;
+}
+
+.category-badge.non-edible:hover {
+  background-color: #ffcdd2;
 }
 
 /* Description Styles */
@@ -96,12 +121,14 @@
   margin-top: 20px;
   padding-top: 20px;
   border-top: 1px solid #eee;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
 
 .description h4 {
   color: #333;
   margin-bottom: 15px;
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 600;
 }
 
 .description-list {
@@ -128,14 +155,15 @@
 /* Loading Styles */
 .loading {
   text-align: center;
+  padding: 20px;
 }
 
 .loader {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #3498db;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: clamp(30px, 6vw, 40px);
+  height: clamp(30px, 6vw, 40px);
   animation: spin 1s linear infinite;
   margin: 20px auto;
 }
@@ -143,4 +171,105 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Image Styles */
+.plant-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Error State Styles */
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+/* Responsive Media Queries */
+@media screen and (max-width: 768px) {
+  .results-container {
+    padding: 5px;
+    margin: 1px auto;
+  }
+
+  .result-card {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .results-container {
+    padding: 10px;
+    margin: 5px auto;
+  }
+
+  .result-card {
+    padding: 12px;
+  }
+
+  .description-item {
+    padding-left: 20px;
+  }
+
+  .description-item::before {
+    left: 6px;
+  }
+
+  .category-badge {
+    display: block;
+    margin: 10px auto;
+    max-width: 200px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .results-container {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .result-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .confidence-meter,
+  .loader {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .result-card,
+  .confidence-fill,
+  .category-badge,
+  .loader {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .confidence-fill-green {
+    background: #006400;
+  }
+
+  .confidence-fill-red {
+    background: #8b0000;
+  }
+
+  .category-badge {
+    border-width: 2px;
+  }
 }

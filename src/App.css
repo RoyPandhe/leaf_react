@@ -23,7 +23,7 @@
 
   /* Scan Page */
   .scan-page {
-    padding: 1rem; /* Mengurangi padding pada scan page */
+    padding-top: 3rem; /* Mengurangi padding pada scan page */
   }
 
   .scan-page h1 {

@@ -61,7 +61,8 @@
   font-weight: 900;
   transition: all 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
 }
-.camera-button::before{
+
+.camera-button::before {
   position: absolute;
   pointer-events: none;
   top: 0;
@@ -77,7 +78,8 @@
     0 4px rgb(100 253 31 / 99%) inset, -4px 0 rgb(100 253 31 / 50%) inset,
     4px 0 rgb(21 108 0 / 50%) inset;
 }
-.camera-button::after{
+
+.camera-button::after {
   position: absolute;
   pointer-events: none;
   top: 0;
@@ -89,6 +91,7 @@
   box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
   transition: 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
 }
+
 .camera-button:hover:before {
   box-shadow: 0 -4px rgb(0 0 0 / 50%) inset, 0 4px rgb(255 255 255 / 20%) inset,
     -4px 0 rgb(255 255 255 / 20%) inset, 4px 0 rgb(0 0 0 / 50%) inset;
@@ -116,7 +119,6 @@
   border-radius: 20px;
   cursor: pointer;
 }
-
 
 .stop-button {
   background-color: #3ee6f1;
@@ -170,6 +172,7 @@
 .captured-image:hover {
   transform: scale(1.05);
 }
+
 .loading-overlay {
   position: absolute;
   top: 0;
@@ -193,6 +196,58 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+  .camera-container {
+    padding: 0.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .camera-preview {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .camera-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .camera-button,
+  .capture-button,
+  .stop-button,
+  .delete-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 40px;
+  }
+
+  .camera-button {
+    padding: 0.6rem 1rem;
+  }
+
+  .captured-image {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .loading-overlay {
+    padding: 1rem;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
 }

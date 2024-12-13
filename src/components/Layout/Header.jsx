@@ -37,7 +37,7 @@ const Header = () => {
             className={`nav-link ${location.pathname === '/scan' ? 'active' : ''}`}
             onClick={() => setMenuOpen(false)}
           >
-            Identify Plant
+            Identify Leaf
           </Link>
           <Link 
             to="/history" 

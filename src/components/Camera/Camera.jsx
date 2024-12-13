@@ -43,38 +43,40 @@ const Camera = ({ onCapture }) => {
 
   const captureImage = useCallback(() => {
     if (!videoRef.current) return;
-
+  
     const canvas = document.createElement('canvas');
     const video = videoRef.current;
     const ctx = canvas.getContext('2d');
-
-    // Menyesuaikan ukuran canvas dengan ukuran video
+  
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-
-    // Mengatur filter untuk meningkatkan kecerahan gambar
+  
     ctx.filter = 'brightness(1.2)';
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    // Mengonversi canvas menjadi file gambar
+  
     canvas.toBlob(async (blob) => {
-      // Generate nama file unik menggunakan UUID
+      // Generate unique filename
       const uniqueFileName = `image-${uuidv4()}.jpg`;
-
       const file = new File([blob], uniqueFileName, { type: "image/jpeg" });
-
-      // Simpan URL gambar untuk ditampilkan
+  
+      // Save captured image URL for preview
       const imageUrl = URL.createObjectURL(blob);
       setCapturedImage(imageUrl);
-      onCapture(file); // Kirim file gambar ke parent component
-
-      // Proses upload ke S3 melalui pre-signed URL
-      const presignedUrl = await getPresignedUrl(uniqueFileName);
-      if (presignedUrl) {
-        await uploadToS3UsingPresignedUrl(file, presignedUrl);
+  
+      try {
+        // Get presigned URL and upload
+        const presignedUrl = await getPresignedUrl(uniqueFileName);
+        if (presignedUrl) {
+          await uploadToS3UsingPresignedUrl(file, presignedUrl);
+          // Pass only the filename/key to parent component
+          onCapture(uniqueFileName);
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        setError('Failed to upload image');
       }
-
-      stopCamera(); // Hentikan kamera setelah foto diambil
+  
+      stopCamera();
     }, 'image/jpeg');
   }, [onCapture, stopCamera]);
 
