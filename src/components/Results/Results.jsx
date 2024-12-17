@@ -17,7 +17,7 @@ const Results = ({ data, loading }) => {
   // Parse the description string into an array if it's not already an array
   const descriptionList = Array.isArray(data.description) 
     ? data.description 
-    : data.description.split('|').map(item => item.trim());
+    : data.description.split('\n').map(item => item.trim());
 
   // Determine confidence color based on category
   const isNonEdible = data.category === 'Non Edible';
