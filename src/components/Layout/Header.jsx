@@ -46,6 +46,13 @@ const Header = () => {
           >
             History
           </Link>
+          <Link 
+            to="/about" 
+            className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
+            onClick={() => setMenuOpen(false)}
+          >  
+            About 
+          </Link>
         </nav>
       </div>
     </header>
